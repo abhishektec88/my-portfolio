@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/contact", "destination": "/index.html" },
+    { "source": "/project/:slug*", "destination": "/portfolio-legacy.html" }
+  ]
+}

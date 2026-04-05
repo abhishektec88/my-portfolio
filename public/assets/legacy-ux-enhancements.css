@@ -1,0 +1,56 @@
+/*
+ * Minimal overrides on top of BoPt0IX0.css + the legacy bundle.
+ */
+
+html {
+  color-scheme: light;
+}
+
+.intro-hero .hero-title[data-v-43cf95eb] {
+  color: var(--color-text-400) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/*
+ * About panels — description, skills, name/details: frosted glass + white copy.
+ */
+.box-description-content[data-v-950d4e82],
+.box-services-content[data-v-efaa9dc5],
+.box-details-content[data-v-f16a3d96] {
+  background: transparent !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff !important;
+}
+
+.box-description-content[data-v-950d4e82] *,
+.box-services-content[data-v-efaa9dc5] *,
+.box-details-content[data-v-f16a3d96] *,
+.box-description-details[data-v-950d4e82],
+.box-description-details[data-v-950d4e82] * {
+  color: #ffffff !important;
+}
+
+.box-services-list-item[data-v-efaa9dc5]:before {
+  background-color: #ffffff !important;
+}
+
+/* PNG logo in header + preloader (replaces inline SVG mark) */
+img.logo-svg {
+  object-fit: contain;
+  display: block;
+}
+
+/*
+ * About section scroll: the bundle adds .header-dark when #about is in view.
+ * Turn the PNG mark white so it matches the light header chrome (black/dark icon → white).
+ * Works best if the artwork is dark lines on a transparent background.
+ */
+.header-dark[data-v-004130a8] img.logo-svg {
+  filter: brightness(0) invert(1);
+}
+
+.preloader-hidden .preloader-svg {
+  transform: scale(0.4);
+  opacity: 0;
+}
