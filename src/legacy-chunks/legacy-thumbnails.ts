@@ -1,5 +1,5 @@
 /**
- * Legacy chunk: thumbnail URLs (same export names as original `DABWVKfi.js`).
+ * Legacy chunk: thumbnail URLs (same export names as the original hashed bundle).
  * Edit paths in `src/data/legacy/thumbnails.ts` instead.
  */
 import { legacyProjectThumbnails as paths } from "../data/legacy/thumbnails";

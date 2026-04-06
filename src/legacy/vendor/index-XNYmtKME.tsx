@@ -1,7 +1,8 @@
+// @ts-nocheck
 const __vite__mapDeps = (
     i,
     m = __vite__mapDeps,
-    d = m.f || (m.f = ["chunks/DABWVKfi.js", "chunks/BzAv57W4.js"])
+    d = m.f || (m.f = ["chunks/legacy-thumbnails.js", "chunks/legacy-projects-en.js"])
 ) => i.map((i) => d[i]);
 (function () {
     const e = document.createElement("link").relList;
@@ -13630,7 +13631,7 @@ const AR = { class: "header-left" },
     },
     IR = {
         common: Object.assign({
-            "./namespaces/common/en.json": () => Mh(() => import("./DNxQoBUa.js"), []),
+            "./namespaces/common/en.json": () => Mh(() => import("./legacy-i18n-en.js"), []),
         }),
     },
     Jv = new Map(),
@@ -40026,6 +40027,7 @@ const lk = "/assets/Dor3YHhe.glb",
         { name: "room-texture", type: "texture", path: Tk },
         { name: "room-shadow-texture", type: "texture", path: Ak },
     ];
+    console.log("S1", S1)
 class Ek extends O_ {
     toLoad = S1.length;
     isReady = !1;
@@ -43661,7 +43663,7 @@ const NA = rt(n8, [["render", r8]]),
     }),
     I8 = rt(P8, [["__scopeId", "data-v-1d8f724d"]]),
     OA = {
-        en: () => Mh(() => import("./BzAv57W4.js"), __vite__mapDeps([1, 0])),
+        en: () => Mh(() => import("./legacy-projects-en.js"), __vite__mapDeps([1, 0])),
     },
     so = gt({
         __name: "Link",

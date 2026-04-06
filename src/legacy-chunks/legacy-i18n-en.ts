@@ -1,5 +1,5 @@
 /**
- * Legacy chunk: English UI strings (`DNxQoBUa.js`).
+ * Legacy chunk: English UI strings for the vendor bundle.
  * Edit in `src/data/legacy/i18n.ts` (`legacyI18nEn`).
  */
 import { legacyI18nEn } from "../data/legacy/i18n-en.js";

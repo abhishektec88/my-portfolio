@@ -24,7 +24,7 @@ function mapVirtualPathsToModules(i: Record<string, ReturnType<typeof freezeLega
   return e;
 }
 
-/** Same shape as `zz` in the original Vue bundle (`index-XNYmtKME.js`). English only. */
+/** Same shape as `zz` in the original Vue bundle (`index-XNYmtKME.tsx`). English only. */
 export function getVendorGlobalData() {
   const clientEn = freezeLegacyModule(vendorProjectCaseClientPortfolioEn);
   const ngoEn = freezeLegacyModule(vendorProjectCaseNgoWebsiteEn);

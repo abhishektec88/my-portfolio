@@ -1,4 +1,4 @@
-/** Technology labels for project tags (Vue `Tag` component) — was inline in `index-XNYmtKME.js`. */
+/** Technology labels for project tags (Vue `Tag` component) — was inline in `index-XNYmtKME.tsx`. */
 export const vendorTagLabels: Record<string, string> = {
   three: "Three.js",
   websockets: "WebSockets",

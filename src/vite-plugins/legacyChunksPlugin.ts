@@ -3,7 +3,8 @@
  * Dev: middleware compiles on first request (cached until sources change).
  * Build: writes `dist/chunks/*.js` (+ .map). `vendor-project-data.js` is built from
  * `src/legacy-chunks/vendor-project-data.ts` (project case copy + tag labels for the legacy Vue app).
- * Vendor main `index-XNYmtKME.js` is copied from `src/legacy/vendor/`.
+ * Vendor main `index-XNYmtKME.tsx` is transformed from `src/legacy/vendor/`
+ * and emitted as `/chunks/index-XNYmtKME.js`.
  */
 import type { Plugin, ResolvedConfig } from "vite";
 import * as esbuild from "esbuild";
@@ -11,14 +12,23 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 
-const CHUNK_NAMES = ["DABWVKfi", "BzAv57W4", "DNxQoBUa"] as const;
+const CHUNK_NAMES = ["legacy-thumbnails", "legacy-projects-en", "legacy-i18n-en"] as const;
 type ChunkName = (typeof CHUNK_NAMES)[number];
 
 const VENDOR_MAIN = "index-XNYmtKME.js";
+const VENDOR_MAIN_SOURCE = "index-XNYmtKME.tsx";
 const VENDOR_PROJECT_DATA = "vendor-project-data.js";
 
-function vendorMainPath(projectRoot: string): string {
-  return path.join(projectRoot, "src/legacy/vendor", VENDOR_MAIN);
+async function buildVendorMainJs(projectRoot: string): Promise<string> {
+  const sourcePath = path.join(projectRoot, "src/legacy/vendor", VENDOR_MAIN_SOURCE);
+  const source = await fs.readFile(sourcePath, "utf8");
+  const result = await esbuild.transform(source, {
+    loader: "tsx",
+    format: "esm",
+    target: "es2022",
+    sourcefile: sourcePath,
+  });
+  return result.code;
 }
 
 async function buildVendorProjectDataJs(projectRoot: string): Promise<string> {
@@ -51,23 +61,23 @@ async function buildLegacyChunksToDir(root: string, outDir: string): Promise<voi
   await esbuild.build({
     ...common,
     absWorkingDir,
-    entryPoints: [path.join(root, "src/legacy-chunks/DABWVKfi.ts")],
-    outfile: path.join(outDir, "DABWVKfi.js"),
+    entryPoints: [path.join(root, "src/legacy-chunks/legacy-thumbnails.ts")],
+    outfile: path.join(outDir, "legacy-thumbnails.js"),
   });
 
   await esbuild.build({
     ...common,
     absWorkingDir,
-    entryPoints: [path.join(root, "src/legacy-chunks/BzAv57W4.ts")],
-    outfile: path.join(outDir, "BzAv57W4.js"),
-    external: ["./DABWVKfi.js"],
+    entryPoints: [path.join(root, "src/legacy-chunks/legacy-projects-en.ts")],
+    outfile: path.join(outDir, "legacy-projects-en.js"),
+    external: ["./legacy-thumbnails.js"],
   });
 
   await esbuild.build({
     ...common,
     absWorkingDir,
-    entryPoints: [path.join(root, "src/legacy-chunks/DNxQoBUa.ts")],
-    outfile: path.join(outDir, "DNxQoBUa.js"),
+    entryPoints: [path.join(root, "src/legacy-chunks/legacy-i18n-en.ts")],
+    outfile: path.join(outDir, "legacy-i18n-en.js"),
   });
 }
 
@@ -133,7 +143,7 @@ export function legacyChunksPlugin(): Plugin[] {
           if (url === `/chunks/${VENDOR_MAIN}`) {
             try {
               if (vendorMainJs === null) {
-                vendorMainJs = await fs.readFile(vendorMainPath(root), "utf8");
+                vendorMainJs = await buildVendorMainJs(root);
               }
               res.setHeader("Content-Type", "text/javascript; charset=utf-8");
               res.end(vendorMainJs);
@@ -141,12 +151,16 @@ export function legacyChunksPlugin(): Plugin[] {
             } catch (e) {
               console.error("[legacy-chunks] vendor main:", e);
               res.statusCode = 500;
-              res.end("// missing src/legacy/vendor/index-XNYmtKME.js\n");
+              res.end("// missing src/legacy/vendor/index-XNYmtKME.tsx\n");
               return;
             }
           }
-          const jsM = url.match(/^\/chunks\/(DABWVKfi|BzAv57W4|DNxQoBUa)\.js$/);
-          const mapM = url.match(/^\/chunks\/(DABWVKfi|BzAv57W4|DNxQoBUa)\.js\.map$/);
+          const jsM = url.match(
+            /^\/chunks\/(legacy-thumbnails|legacy-projects-en|legacy-i18n-en)\.js$/,
+          );
+          const mapM = url.match(
+            /^\/chunks\/(legacy-thumbnails|legacy-projects-en|legacy-i18n-en)\.js\.map$/,
+          );
           const name = (jsM?.[1] ?? mapM?.[1]) as ChunkName | undefined;
           if (!name) {
             next();
@@ -194,7 +208,8 @@ export function legacyChunksPlugin(): Plugin[] {
         await buildLegacyChunksToDir(r, chunksDir);
         const vendorData = await buildVendorProjectDataJs(r);
         await fs.writeFile(path.join(chunksDir, VENDOR_PROJECT_DATA), vendorData, "utf8");
-        await fs.copyFile(vendorMainPath(r), path.join(chunksDir, VENDOR_MAIN));
+        const vendorMain = await buildVendorMainJs(r);
+        await fs.writeFile(path.join(chunksDir, VENDOR_MAIN), vendorMain, "utf8");
         console.log("[legacy-chunks] emitted", chunksDir);
       },
     },

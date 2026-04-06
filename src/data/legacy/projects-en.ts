@@ -1,6 +1,6 @@
 import { legacyProjectThumbnails as T } from "./thumbnails";
 
-/** English project rows — used by `BzAv57W4` legacy chunk. Order matches `DABWVKfi` thumbnails. */
+/** English project rows — used by `legacy-projects-en` chunk. Order matches `legacy-thumbnails`. */
 export const legacyProjectsEn = [
   {
     title: "Client Portfolio Website",

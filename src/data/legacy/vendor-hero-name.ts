@@ -1,6 +1,6 @@
 /**
  * Two-line hero title in the legacy Vue `Hero` component (`<h1 class="hero-title">`).
- * Edit here instead of `index-XNYmtKME.js`.
+ * Edit here instead of `index-XNYmtKME.tsx`.
  */
 export const vendorHeroName = {
   line1: "Abhishek",

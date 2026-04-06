@@ -4,7 +4,7 @@ This project is **Vite + React + TypeScript**. The **visual experience** (WebGL 
 
 - **React entry:** `src/App.tsx`, `src/main.tsx`
 - **Site name, SEO, social cards, theme, public URL:** `src/site.config.ts` — drives both the React shell (`index.html`) and **`/portfolio-legacy.html`** (generated in dev/build from `src/legacy/portfolio-legacy.template.html`; not stored under `public/`).
-- **Legacy data chunks (TypeScript only):** `src/legacy-chunks/` + `src/data/legacy/`. Vite compiles them on the fly in dev and writes **`dist/chunks/*.js`** on production build. The **vendor WebGL main bundle** lives in **`src/legacy/vendor/index-XNYmtKME.js`** and is copied/served to `/chunks/` by the legacy plugin (`public/chunks/` has no committed `.js` files).
+- **Legacy data chunks (TypeScript only):** `src/legacy-chunks/` + `src/data/legacy/`. Vite compiles them on the fly in dev and writes **`dist/chunks/*.js`** on production build. The **vendor WebGL main source** lives in **`src/legacy/vendor/index-XNYmtKME.tsx`** and is transformed/served as **`/chunks/index-XNYmtKME.js`** by the legacy plugin (`public/chunks/` has no committed `.js` files).
 - **Static assets:** `public/assets/`, `public/fonts/`, `public/meta/`
 
 ## Commands

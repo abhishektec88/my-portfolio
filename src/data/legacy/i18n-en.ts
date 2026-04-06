@@ -1,4 +1,4 @@
-/** English UI strings — used by `DNxQoBUa` legacy chunk. */
+/** English UI strings — used by `legacy-i18n-en` legacy chunk. */
 export const legacyI18nEn = {
   about: "About",
   contact: "Contact",
@@ -10,6 +10,9 @@ export const legacyI18nEn = {
   projects: "Projects",
   selected: "Selected",
   services: "Skills",
+  "skills-list":
+    "Python|scikit-learn|XGBoost|React|Java (Spring Boot)|AWS",
+  "skip-to-content": "Skip to content",
   version: "Version",
   "about-intro":
     "Senior Software Engineer with 5.5+ years in full-stack development and AI/ML integration.<br />I work with Python, scikit-learn, XGBoost, React, Java (Spring Boot), and AWS — designing intelligent platforms for banking, finance, and logistics, including credit risk, fraud detection, and route optimization.",
@@ -30,7 +33,11 @@ export const legacyI18nEn = {
   "contact-form-message": "Message",
   "contact-form-message-ph": "Tell me about your project or idea...",
   "contact-form-send": "Send Message",
+  "contact-mail-subject": "Hello from your portfolio",
+  "contact-open-full-form": "Open full contact form",
   "go-to": "Go to",
+  "hero-name-line1": "Abhishek",
+  "hero-name-line2": "Ranjan",
   "job-title": "Senior Software Engineer",
   "lets-work-together": "Let's work<br/>together!",
   "live-view": "Live View",
